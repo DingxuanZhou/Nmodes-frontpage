@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 
-const Download = ({ uploadedFilename }) => {
+type DownloadProps = {
+  uploadedFilename: string;
+};
+
+const Download = ({ uploadedFilename }: DownloadProps) => {
   const handleDownload = async () => {
     if (uploadedFilename) {
       try {
@@ -13,9 +17,7 @@ const Download = ({ uploadedFilename }) => {
         const a = document.createElement('a');
         a.href = blobUrl;
         a.download = uploadedFilename;
-        document.body.appendChild(a); // Append the anchor element to the DOM
         a.click();
-        document.body.removeChild(a); // Remove the anchor element after download
         URL.revokeObjectURL(blobUrl);
       } catch (error) {
         console.error('Error downloading file:', error);
@@ -27,12 +29,6 @@ const Download = ({ uploadedFilename }) => {
 
   return (
     <div>
-      {uploadedFilename && (
-        <div>
-          <p>File Name: {uploadedFilename}</p>
-          <button onClick={handleDownload}>Download</button>
-        </div>
-      )}
       <button onClick={handleDownload}>Download</button>
     </div>
   );
