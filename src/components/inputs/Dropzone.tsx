@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { NavigationButtons } from "@/components/NavigationButtons";
 
-const Dropzone = ({ setUploadedFilename }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+type DropzoneProps = {
+  setUploadedFilename: (filename: string) => void;
+};
+
+const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
+  const router = useRouter();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   // Handle file drop event
-  const onDrop = (acceptedFiles) => {
+  const onDrop = (acceptedFiles: File[]) => {
     setSelectedFile(acceptedFiles[0]);
   };
 
   // Handle form submission
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
     if (selectedFile) {
@@ -48,9 +54,7 @@ const Dropzone = ({ setUploadedFilename }) => {
 
   // Handle navigation to the next page
   const handleNextClick = () => {
-    console.log('Selected file name:', selectedFile.name)
     if (selectedFile) {
-      console.log('Selected file name:', selectedFile.name); // Add console.log here
       router.push({
         pathname: '/summary',
         query: { uploadedFilename: selectedFile.name }, // Pass the filename here
@@ -75,7 +79,9 @@ const Dropzone = ({ setUploadedFilename }) => {
         Submit
       </button>
       {isUploaded && (
-        <NavigationButtons back='/contact-information' next='/summary' handleNextClick={handleNextClick} />
+        <button onClick={handleNextClick} style={{ fontSize: '20px', padding: '10px 20px', marginTop: '20px' }}>
+          Next
+        </button>
       )}
       {isLoading && (
         <p style={{ color: 'blue' }}>Processing...</p>
