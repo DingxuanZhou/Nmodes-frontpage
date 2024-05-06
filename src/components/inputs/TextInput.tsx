@@ -11,11 +11,11 @@ export const TextInput = ({ labelText }: TextInputProps) => {
     <>
       <label
         htmlFor='text'
-        className='text-[18px] text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%'
+        className='font-normal'
       >
         {labelText}
       </label>
-      <input
+      <input 
         type='text'
         name='text'
         placeholder={inputText}

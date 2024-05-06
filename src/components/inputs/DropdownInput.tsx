@@ -20,7 +20,7 @@ export const DropdownInput = ({ question, data }: DropdownInputProps) => {
 
   return (
     <section className="flex flex-col gap-4 py-2">
-      <p className="text-[18px] text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
+      <p className="text-2xl font-bold">
         {question}
       </p>
       <Listbox

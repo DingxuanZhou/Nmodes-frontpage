@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'; // Import the useRouter hook
 import { NavigationButtons } from "@/components/NavigationButtons";
 
 type DropzoneProps = {
@@ -9,11 +9,11 @@ type DropzoneProps = {
 };
 
 const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
-  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter(); // Initialize useRouter
 
   // Handle file drop event
   const onDrop = (acceptedFiles: File[]) => {
@@ -31,13 +31,18 @@ const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        // Replace the URL with your actual upload endpoint
         const response = await axios.post('https://investiflex.com/sov-insurance_api/upload', formData);
 
         if (response.status === 200) {
           setIsUploaded(true);
           setIsLoading(false);
           setUploadedFilename(selectedFile.name); // Set the uploaded filename
+
+          // Navigate to the summary page using Next.js router
+          router.push({
+            pathname: '/summary',
+            query: { uploadedFilename: selectedFile.name } // Pass filename as query param
+          });
         } else {
           setIsLoading(false);
           setErrorMessage('Upload failed. Please try again.');
@@ -52,18 +57,6 @@ const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
     }
   };
 
-  // Handle navigation to the next page
-  const handleNextClick = () => {
-    if (selectedFile) {
-      router.push({
-        pathname: '/summary',
-        query: { uploadedFilename: selectedFile.name }, // Pass the filename here
-      });
-    } else {
-      console.error('No selected file available.');
-    }
-  };
-
   // Initialize dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
@@ -75,13 +68,11 @@ const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
           <p className="file-drop-text">Drag & drop files here, or click to select files</p>
         </div>
       </div>
-      <button type="submit" onClick={handleSubmit}>
+      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleSubmit}>
         Submit
       </button>
       {isUploaded && (
-        <button onClick={handleNextClick} style={{ fontSize: '20px', padding: '10px 20px', marginTop: '20px' }}>
-          Next
-        </button>
+        <NavigationButtons back='/contact-information' next='/summary' />
       )}
       {isLoading && (
         <p style={{ color: 'blue' }}>Processing...</p>

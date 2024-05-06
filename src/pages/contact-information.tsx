@@ -2,14 +2,9 @@ import { Layout } from "@/components/Layout"
 import { StepsLayout } from "@/components/StepsLayout"
 import { NavigationButtons } from "@/components/NavigationButtons"
 import { TextInput } from "@/components/inputs/TextInput"
-import useFormStore from "@/store/form"
 
 const ContactInformation = () => {
-  const { radioOption } = useFormStore()
-  // TODO
-  /**
-   * useEffect to reset the text area field when radioOption === 'no'
-   */
+
 
   return (
     <Layout>

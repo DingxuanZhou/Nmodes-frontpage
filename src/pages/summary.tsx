@@ -9,12 +9,15 @@ const SummaryPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log('router.query:', router.query);
     const { uploadedFilename } = router.query;
-    console.log('uploadedFilename:', uploadedFilename); // Log the filename
+    
     if (uploadedFilename) {
       setUploadedFilename(uploadedFilename as string);
     }
+    console.log('uploadedFilename:', uploadedFilename);
   }, [router.query]);
+  
 
   return (
     <Layout>

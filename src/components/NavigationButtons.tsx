@@ -16,7 +16,7 @@ export const NavigationButtons = ({
   return (
     <div className="absolute bottom-[100px] flex gap-80">
       <Link href={back}>
-        <button className="px-2 py-1 border-2 rounded-lg text-[18px] lg:text-[24px] text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% hover:from-pink-500 hover:to-yellow-500">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
           Back
         </button>
       </Link>
@@ -25,7 +25,7 @@ export const NavigationButtons = ({
         <button
           type="submit"
           disabled={!stepIsValidated}
-          className="px-2 py-1 rounded-lg text-[18px] lg:text-[24px] text-slate-50 bg-gradient-to-r from-sky-500 via-30% to-emerald-500 to-90% hover:from-pink-500 hover:to-yellow-500"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
         >
           Submit
         </button>
@@ -33,7 +33,7 @@ export const NavigationButtons = ({
         <Link href={next}>
           <button
             disabled={!stepIsValidated}
-            className="px-2 py-1 rounded-lg text-[18px] lg:text-[24px] text-slate-50 bg-gradient-to-r from-sky-500 via-30% to-emerald-500 to-90% hover:from-pink-500 hover:to-yellow-500"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
           >
             Next
           </button>
