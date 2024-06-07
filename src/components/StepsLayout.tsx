@@ -37,11 +37,11 @@ export const StepsLayout = ({ children }: StepsLayoutProps) => {
   const activeSumary = router.pathname === "/summary";
 
   return (
-    <article className="flex justify-start lg:gap-28 min-w-[72%] lg:min-w-[82%] bg-white">
-      <div className="flex flex-col px-8 py-6 mx-20 h-[450px] border-r-2 border-[#8586887c] border-dashed">
+    <article className="flex justify-center items-start lg:gap-60 w-full h-full bg-white -mt-10">
+      <div className="flex flex-col px-16 py-6 border-r-2 border-[#8586887c] border-dashed h-full">
         {/* Additional text */}
-        <p className="flex items-center gap-6 text-black font-bold text-2xl mb-6">
-          Complete the following 5 steps to know your business better:
+        <p className="flex items-center gap-6 text-black font-bold text-2xl mb-10">
+          Complete the following steps:
         </p>
         <div className="flex items-center gap-4">
           <Dot active />
@@ -71,7 +71,7 @@ export const StepsLayout = ({ children }: StepsLayoutProps) => {
           <StepTitle active={activeSumary} title="Summary" />
         </div>
       </div>
-      <form>{children}</form>
+      <form className="ml-8">{children}</form>
     </article>
   );
 };
