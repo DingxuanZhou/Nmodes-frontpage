@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Import the useRouter hook
 import { NavigationButtons } from "@/components/NavigationButtons";
 
 type DropzoneProps = {
   setUploadedFilename: (filename: string) => void;
-  handleNavigateToSummary: (filename: string, result: string) => void;
+  handleNavigateToSummary: (filename: string, result: { status: { MESSAGE: string; RESPONSE: string }[] }) => void;
 };
 
 const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProps) => {
@@ -14,7 +13,6 @@ const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProp
   const [isUploaded, setIsUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter(); // Initialize useRouter
 
   const onDrop = (acceptedFiles: File[]) => {
     setSelectedFile(acceptedFiles[0]);
@@ -36,12 +34,8 @@ const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProp
           setIsUploaded(true);
           setIsLoading(false);
           setUploadedFilename(selectedFile.name); // Set the uploaded filename
-          // In Dropzone component
-          
-          handleNavigateToSummary(selectedFile.name, response.data);
 
-
-          // Navigate to the summary page using Next.js router with response data
+          // Navigate to the summary page using the provided handler
           handleNavigateToSummary(selectedFile.name, response.data);
         } else {
           setIsLoading(false);
@@ -71,7 +65,6 @@ const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProp
         Submit
       </button>
       {isUploaded && (
-        
         <NavigationButtons back='/contact-information' next='/summary' />
       )}
       {isLoading && (
