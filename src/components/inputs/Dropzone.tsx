@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // Import the useRouter hook
 import { NavigationButtons } from "@/components/NavigationButtons";
 
 type DropzoneProps = {
   setUploadedFilename: (filename: string) => void;
+  handleNavigateToSummary: (filename: string, result: { status: { MESSAGE: string; RESPONSE: string }[] }) => void;
 };
 
-const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
+const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploaded, setIsUploaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter(); // Initialize useRouter
 
-  // Handle file drop event
   const onDrop = (acceptedFiles: File[]) => {
     setSelectedFile(acceptedFiles[0]);
   };
 
-  // Handle form submission
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
 
@@ -38,11 +35,8 @@ const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
           setIsLoading(false);
           setUploadedFilename(selectedFile.name); // Set the uploaded filename
 
-          // Navigate to the summary page using Next.js router
-          router.push({
-            pathname: '/summary',
-            query: { uploadedFilename: selectedFile.name } // Pass filename as query param
-          });
+          // In Dropzone component
+          handleNavigateToSummary(selectedFile.name, response.data);
         } else {
           setIsLoading(false);
           setErrorMessage('Upload failed. Please try again.');
@@ -57,7 +51,6 @@ const Dropzone = ({ setUploadedFilename }: DropzoneProps) => {
     }
   };
 
-  // Initialize dropzone
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (

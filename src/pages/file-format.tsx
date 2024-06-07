@@ -6,7 +6,8 @@ import { DropdownInput } from "@/components/inputs/DropdownInput"
 const format = [
   { id: 1, name: "PDF" },
   { id: 2, name: "CSV" },
-  { id: 3, name: "Excel(XLSX)" },
+  { id: 3, name: "EXCEL(XLSX)" },
+  { id: 4, name: "WORD" },
 ]
 
 const FileFormat = () => {

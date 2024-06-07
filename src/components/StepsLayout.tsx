@@ -30,6 +30,7 @@ export const StepTitle = ({ active, title }: StepTitleProps) => {
 export const StepsLayout = ({ children }: StepsLayoutProps) => {
   const router = useRouter();
 
+  const activeZero = router.pathname === "/workdflow";;
   const activeOne = router.pathname === "/file-format";
   const activeTwo = router.pathname === "/contact-information";
   const activeAnswers = router.pathname === "/data-spreedsheet";
@@ -40,10 +41,18 @@ export const StepsLayout = ({ children }: StepsLayoutProps) => {
       <div className="flex flex-col px-8 py-6 mx-20 h-[300px] border-r-2 border-[#8586887c] border-dashed">
          {/* Additional text */}
         <p className="flex items-center gap-4 text-black font-bold text-2xl">Complete the following 4 steps to know your business better:</p>
-        <Link href="/file-format">
+        <Link href="/workflow">
 
           <div className="flex items-center gap-4">
             <Dot active />
+            <StepTitle active={activeZero} title="Workflow" />
+          </div>
+        </Link>
+        <VerticalLine active={activeOne || activeTwo || activeAnswers|| activeSumary} />
+        <Link href="/file-format">
+
+          <div className="flex items-center gap-4">
+          <Dot active={activeOne || activeTwo || activeAnswers|| activeSumary} />
             <StepTitle active={activeOne} title="File Format" />
           </div>
         </Link>
