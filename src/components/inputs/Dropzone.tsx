@@ -35,7 +35,7 @@ const Dropzone = ({ setUploadedFilename, handleNavigateToSummary }: DropzoneProp
           setIsLoading(false);
           setUploadedFilename(selectedFile.name); // Set the uploaded filename
 
-          // In Dropzone component
+          // Navigate to the summary page using the provided handler
           handleNavigateToSummary(selectedFile.name, response.data);
         } else {
           setIsLoading(false);

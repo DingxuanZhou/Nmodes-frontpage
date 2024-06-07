@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Layout } from "@/components/Layout";
 import { StepsLayout } from "@/components/StepsLayout";
-import Download from '@/components/inputs/Download'; // Adjust the import path as per your project structure
+import Download from '@/components/inputs/Download'; 
 import { useRouter } from 'next/router';
 
 type UploadResultItem = {

@@ -11,18 +11,22 @@ const DataSpreedsheet = () => {
   // Function to handle navigation to SummaryPage
   const handleNavigateToSummary = (filename: string, result: { status: { MESSAGE: string; RESPONSE: string }[] }) => {
     if (filename) {
-      // Check if result.status is an array before processing
-      if (Array.isArray(result.status)) {
-        // Map over the array and concatenate MESSAGE and RESPONSE for each object
-        const resultString = result.status.map(item => `${item.MESSAGE}: ${item.RESPONSE}`).join('\n');
-        console.log('Navigating to summary with:', filename, resultString);
+      if (filename.endsWith('.xlsx')) {
+        // If the file is an Excel file, navigate directly to the summary page
         router.push({
           pathname: '/summary',
-          query: { uploadedFilename: filename, uploadResult: JSON.stringify(result) }, // Convert result to JSON string
+          query: { uploadedFilename: filename },
         });
-        
       } else {
-        console.error('Invalid result format: status is not an array.');
+        // Otherwise, handle the result as usual
+        if (Array.isArray(result.status)) {
+          router.push({
+            pathname: '/summary',
+            query: { uploadedFilename: filename, uploadResult: JSON.stringify(result) }, // Convert result to JSON string
+          });
+        } else {
+          console.error('Invalid result format: status is not an array.');
+        }
       }
     } else {
       console.error('No uploaded filename available.');
