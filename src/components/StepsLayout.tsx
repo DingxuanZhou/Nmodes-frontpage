@@ -30,7 +30,7 @@ export const StepTitle = ({ active, title }: StepTitleProps) => {
 export const StepsLayout = ({ children }: StepsLayoutProps) => {
   const router = useRouter();
 
-  const activeZero = router.pathname === "/workdflow";;
+  const activeZero = router.pathname === "/workflow";
   const activeOne = router.pathname === "/file-format";
   const activeTwo = router.pathname === "/contact-information";
   const activeAnswers = router.pathname === "/data-spreedsheet";
@@ -38,45 +38,38 @@ export const StepsLayout = ({ children }: StepsLayoutProps) => {
 
   return (
     <article className="flex justify-start lg:gap-28 min-w-[72%] lg:min-w-[82%] bg-white">
-      <div className="flex flex-col px-8 py-6 mx-20 h-[300px] border-r-2 border-[#8586887c] border-dashed">
-         {/* Additional text */}
-        <p className="flex items-center gap-4 text-black font-bold text-2xl">Complete the following 4 steps to know your business better:</p>
-        <Link href="/workflow">
+      <div className="flex flex-col px-8 py-6 mx-20 h-[450px] border-r-2 border-[#8586887c] border-dashed">
+        {/* Additional text */}
+        <p className="flex items-center gap-6 text-black font-bold text-2xl mb-6">
+          Complete the following 5 steps to know your business better:
+        </p>
+        <div className="flex items-center gap-4">
+          <Dot active />
+          <StepTitle active={activeZero} title="Workflow" />
+        </div>
 
-          <div className="flex items-center gap-4">
-            <Dot active />
-            <StepTitle active={activeZero} title="Workflow" />
-          </div>
-        </Link>
-        <VerticalLine active={activeOne || activeTwo || activeAnswers|| activeSumary} />
-        <Link href="/file-format">
+        <VerticalLine active={activeOne || activeTwo || activeAnswers || activeSumary} />
+        <div className="flex items-center gap-4">
+          <Dot active={activeOne || activeTwo || activeAnswers || activeSumary} />
+          <StepTitle active={activeOne} title="File Format" />
+        </div>
 
-          <div className="flex items-center gap-4">
-          <Dot active={activeOne || activeTwo || activeAnswers|| activeSumary} />
-            <StepTitle active={activeOne} title="File Format" />
-          </div>
-        </Link>
-        <VerticalLine active={activeTwo || activeAnswers|| activeSumary} />
-        <Link href="/contact-information">
-          <div className="flex items-center gap-4">
-            <Dot active={activeTwo || activeAnswers|| activeSumary} />
-            <StepTitle active={activeTwo} title="Contact Information" />
-          </div>
-        </Link>
-        <VerticalLine active={activeAnswers|| activeSumary} />
-        <Link href="/data-spreedsheet">
-          <div className="flex items-center gap-4">
-            <Dot active={activeAnswers|| activeSumary} />
-            <StepTitle active={activeAnswers} title="Data Spreedsheet" />
-          </div>
-        </Link>
+        <VerticalLine active={activeTwo || activeAnswers || activeSumary} />
+        <div className="flex items-center gap-4">
+          <Dot active={activeTwo || activeAnswers || activeSumary} />
+          <StepTitle active={activeTwo} title="Contact Information" />
+        </div>
+
+        <VerticalLine active={activeAnswers || activeSumary} />
+        <div className="flex items-center gap-4">
+          <Dot active={activeAnswers || activeSumary} />
+          <StepTitle active={activeAnswers} title="Data Spreedsheet" />
+        </div>
         <VerticalLine active={activeSumary} />
-        <Link href="/summary">
-          <div className="flex items-center gap-4">
-            <Dot active={activeSumary} />
-            <StepTitle active={activeSumary} title="Summary" />
-          </div>
-        </Link>
+        <div className="flex items-center gap-4">
+          <Dot active={activeSumary} />
+          <StepTitle active={activeSumary} title="Summary" />
+        </div>
       </div>
       <form>{children}</form>
     </article>
